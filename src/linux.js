@@ -123,7 +123,7 @@ export const formatPath = (filePath) => {
     icon: 'Icon'
   })
   const filename = path.basename(filePath)
-  return {
+  const app = {
     ...parsedData,
     filename,
     icon: findIcon(parsedData.icon),
@@ -132,4 +132,6 @@ export const formatPath = (filePath) => {
     name: parsedData.name || filename.replace(/\.(desktop)/, ''),
     path: filePath
   }
+  return app
 }
+

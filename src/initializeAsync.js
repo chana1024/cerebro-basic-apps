@@ -7,7 +7,7 @@ import { DIRECTORIES, PATTERNS, EXTENSIONS, formatPath,  } from './platform'
 
 const REINDEX_TIME = 30 * 60 * 1000
 
-const getAppsList = () => {
+export const  getAppsList = () => {
   let patterns = DIRECTORIES.map(dir =>
     path.join(dir, '**', `*.+(${EXTENSIONS.join('|')})`)
   )
@@ -23,12 +23,13 @@ const getAppsList = () => {
     })
   ))
   return Promise.all(promises).then(apps => (
-    uniq(flatten(apps)).map(formatPath).filter(app => !app.hidden)
-  ))
+    uniq(flatten(apps)).filter(app=>fs.lstatSync(app).isFile()).map(formatPath).filter(app => !app.hidden)
+  )).catch(err => {
+    console.error("Error while getting apps list", err)
+  })
 }
 
 export default (callback) => {
-
   const searchApps = () => getAppsList().then(apps => {
     const json = JSON.stringify(apps, null, 2)
     callback(apps)
@@ -38,3 +39,4 @@ export default (callback) => {
   searchApps()
   DIRECTORIES.forEach(dir => fs.watch(dir, {}, searchApps))
 }
+

@@ -4,15 +4,16 @@ import { search } from 'cerebro-tools'
 import uniq from 'lodash/uniq'
 import uniqBy from 'lodash/uniqBy'
 
-import initialize from './initializeAsync'
+import initialize,{getAppsList} from './initializeAsync'
 import { openApp, toString } from './platform'
 
 export const initializeAsync = initialize
-
 let appsList = []
-
+getAppsList().then(apps => {
+  appsList = apps
+})
 export const fn = ({ term, actions, display }) => {
-  const result = search(appsList, term, app => app.searchString)
+  const result = search(appsList, term, app => app.name)
     .sort((a, b) => (b.selectCount || 0) - (a.selectCount || 0))
     .map(app => {
       const { id, path, name, description, icon, exec, source } = app
