@@ -9,6 +9,7 @@ import { shellCommand } from 'cerebro-tools'
 let appDirs = [
   path.join(os.homedir(), '.local', 'share'),
   path.join('/usr', 'share'),
+  path.join('/usr', 'local','share'),
   path.join('/usr', 'share', 'ubuntu'),
   path.join('/usr', 'share', 'gnome'),
   path.join('/usr', 'local', 'share'),
