@@ -24,7 +24,6 @@ export const  getAppsList = () => {
   ))
   return Promise.all(promises).then(apps =>{
     const appsList1 =  uniq(flatten(apps)).filter(app=>fs.lstatSync(app).isFile()||fs.lstatSync(app).isSymbolicLink())
-    console.log(appsList1)
     const appsList = appsList1.map(formatPath).filter(app => !app.hidden)
     console.log(appsList)
     return appsList

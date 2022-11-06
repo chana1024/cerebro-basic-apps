@@ -55,11 +55,12 @@ const onMessage = (apps) => {
   })
 }
 
+// const pluginIcon = require('./icon.png');
 export default {
   name: 'app',
   fn, 
   onMessage,
-  icon: 'icon.png',
+  icon: '/home/lzn/.local/share/icons/hicolor/512x512/apps/chrome-ikpmlgdcejalmjnfbahhijemkcgljabf-Profile_1.png',
   keyword: 'app',
   description: 'Search and open applications',
   initializeAsync
